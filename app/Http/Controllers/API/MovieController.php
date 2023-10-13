@@ -76,6 +76,12 @@ class MovieController extends Controller
 
         $model = Movie::find($id);
 
+         if($data == null) {
+            return response()->json([
+                'message'=>'Data yang ditemukan tidak ada!',
+         ], 404);
+        }
+
         $fillableColumns = ['title', 'description', 'rating', 'image'];
 
         $request->validate([
@@ -104,7 +110,15 @@ class MovieController extends Controller
     
 
     public function destroy($id){
+
         $model = Movie::find($id);
+
+         if($model == null) {
+            return response()->json([
+                'message'=>'Data yang ditemukan tidak ada!',
+         ], 404);
+        }
+
         $model->delete();
 
         return response()->json([
