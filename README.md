@@ -1,66 +1,224 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Nama Proyek - API CRUD Laravel
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Deskripsi singkat proyek: Proyek ini merupakan proyek API CRUD untuk movie management menggunakan Laravel. Proyek ini dilengkapi dengan proteksi otentikasi API menggunakan Sanctum. Proyek ini juga sudah dilengkapi dengan Unit Testing menggunakan PHPUnit Test
 
-## About Laravel
+## Instalasi
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+1. Pastikan Anda memiliki PHP dan Composer diinstal.
+2. Clone repositori ini ke komputer Anda.
+3. Pindah ke direktori proyek: `cd nama-proyek`.
+4. Salin file .env.example menjadi .env dan konfigurasikan pengaturan database.
+5. Jalankan perintah `composer install` untuk menginstal dependensi.
+6. Jalankan perintah `composer require laravel/sanctum` untuk mengunduh Sanctum.
+7. Jalankan migrasi database: `php artisan migrate`.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Konfigurasi
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Pastikan untuk mengatur pengaturan database Anda di file `.env`.
+- Atur konfigurasi lainnya seperti kunci API atau pengaturan lainnya yang diperlukan di file `.env`.
 
-## Learning Laravel
+## Cara Menggunakan
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- API untuk AuthController :
+   - POST `/api/register` - Untuk melakukan registrasi user, dengan mengisi form nama, email, dan password
+   - POST `/api/login` - Untuk login, dengan mengisi form email, dan password
+   - POST `/api/logout` - Untuk logout, perlu diingat untuk menggunakannya diperlukan token yang didapat dari hasil login tadi
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+     - Contoh request dan response:
+       - **POST `/api/register`
+         - Request:
+              ```
+              Content-Type: application/json
+              Body:
+              {
+                "name": "John Doe",
+                "email": "johndoe@gmail.com",
+                "password": "123password"
+              }
+              ```
+            - Response:
+              ```json
+              {
+                "message": "Account has been created successfully"
+              }
+              ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+       - **POST `/api/login`
+         - Request:
+              ```
+              Content-Type: application/json
+              Body:
+              {
+                "name": "John Doe",
+                "email": "johndoe@gmail.com"
+              }
+              ```
+            - Response:
+              ```json
+              {
+                "message": "Success!",
+                "data": {
+                    "user": {
+                        "id": 1,
+                        "name": "John Doe",
+                        "email": "johndoe@gmail.com",
+                        "email_verified_at": null,
+                        "created_at": "2023-10-13T16:23:07.000000Z",
+                        "updated_at": "2023-10-13T16:23:07.000000Z"
+                    },
+                        "token": "1|tiWUYxxxxxxxxxxxxxxxxxxx"
+                    }
+                }
+              ```
+              
+       - **POST `/api/logout`
+         - Request:
+              ```
+              Content-Type: application/json
+              Accept: application/json
+              Authorization: Bearer Token
+              ```
+            - Response:
+              ```json
+              {
+                  "message": "Berhasil logout!"
+                }
+              ```
+         
+       
+     
+- API untuk MovieController :
+  - GET `/api/movies` - Mendapatkan semua data.
+  - POST `/api/movies` - Membuat entitas data baru.
+  - GET `/api/movies/{id}` - Mendapatkan entitas data berdasarkan ID.
+  - PATCH `/api/movies/{id}` - Memperbarui data X berdasarkan ID.
+  - DELETE `/api/movies/{id}` - Menghapus entitas X berdasarkan ID.
 
-## Laravel Sponsors
+     - Contoh request dan response:
+       - **GET `/api/movies`
+         - Request:
+              ```
+              Content-Type: application/json
+              Accept: application/json
+              Authorization: Bearer Token
+              
+              ```
+            - Response:
+              ```json
+              {
+                "message": "Success! Ini adalah halaman utama!",
+                "data": [
+                    {
+                        "id": 1,
+                        "user_id": 1,
+                        "title": "fizi punya",
+                        "description": "Kisah Tanah Jawa: Pocong Gundul adalah film horor Indonesia tahun 2023 yang disutradarai oleh Awi Suryadi berdasarkan novel berjudul sama karya Om Hao. Film produksi MD Pictures ini dibintangi oleh Deva Mahenra, Della Dartyan, dan Iwa K. Kisah Tanah Jawa: Pocong Gundul tayang perdana di bioskop pada tanggal 21 September 2023.",
+                        "rating": 4,
+                        "image": "1697198909.jpg",
+                        "created_at": "2023-10-13T12:08:29.000000Z",
+                        "updated_at": "2023-10-13T12:08:29.000000Z"
+                    }
+                ]
+            }
+              ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+       - **POST `/api/movies`
+         - Request:
+              ```
+              Content-Type: application/json
+              Accept: application/json
+              Authorization: Bearer Token
+              
+              Body:
+              {
+                "title": "MOVIE A",
+                "description": "this is the description",
+                "rating": 6.8,
+                "image": image.jpg
+              }
+              ```
+            - Response:
+              ```json
+              {
+               "message": "Success! Data berhasil dibuat"
+              }
+              ```
+              
+       - **GET `/api/movies/{id}`
+         - Request:
+              ```
+              Content-Type: application/json
+              Accept: application/json
+              Authorization: Bearer Token
+              ```
+            - Response:
+              ```json
+              {
+                "message": "Success! Ini adalah halaman index",
+                "data": {
+                    "id": 2,
+                    "user_id": 2,
+                    "title": "MOVIE A",
+                    "description": "this is the description",
+                    "rating": 6.8,
+                    "image": "1697189678.jpg",
+                    "created_at": "2023-10-13T09:34:38.000000Z",
+                    "updated_at": "2023-10-13T11:58:31.000000Z"
+                 }
+              }
+              ```
 
-### Premium Partners
+       - **PATCH `/api/movies/{id}`
+         - Request:
+              ```
+              Content-Type: application/json
+              Accept: application/json
+              Authorization: Bearer Token
+              ```
+               Body: {
+                   "title": "MOVIE B",
+                   "description": "this is the new description"
+               }
+           
+            - Response:
+              ```json
+                {
+                    "message": "Data update successfully"
+                }
+              ```
+    
+       - **DELETE `/api/movies/{id}`
+         - Request:
+              ```
+              Content-Type: application/json
+              Accept: application/json
+              Authorization: Bearer Token
+              ```
+           
+            - Response:
+              ```json
+                {
+                    "message": "Success! Data berhasil dihapus"
+                }
+              ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
 
-## Contributing
+## Kontribusi
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Kami sangat menghargai kontribusi dari komunitas. Untuk berkontribusi ke proyek ini, ikuti langkah-langkah berikut:
 
-## Code of Conduct
+1. Fork repositori ini.
+2. Buat cabang (branch) fitur Anda: `git checkout -b fitur-anda`.
+3. Lakukan perubahan yang diperlukan.
+4. Commit perubahan Anda: `git commit -m 'Menambahkan fitur XYZ'`.
+5. Push ke cabang Anda: `git push origin fitur-anda`.
+6. Buat pull request ke repositori ini.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Lisensi
 
-## Security Vulnerabilities
+Proyek ini dilisensikan di bawah Lisensi [Nama Lisensi]. Lihat file [LISENSI.md] untuk informasi lebih lanjut.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Cara Untuk Terhubung
 
-## License
+Jika Anda memiliki pertanyaan atau masalah, jangan ragu untuk menghubungi saya di fitranpramakrisna@gmail.com.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
