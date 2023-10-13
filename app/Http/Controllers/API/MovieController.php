@@ -74,39 +74,36 @@ class MovieController extends Controller
 
     public function update(Request $request, $id) {
 
-        $model = Movie::find($id);
+        
+            $model = Movie::find($id);
 
-         if($data == null) {
-            return response()->json([
-                'message'=>'Data yang ditemukan tidak ada!',
-         ], 404);
-        }
+            if ($model) {
+            
+            $fillableColumns = ['title', 'description', 'rating', 'image'];
 
-        $fillableColumns = ['title', 'description', 'rating', 'image'];
+            $request->validate([
+                'rating' => 'required|numeric|between:0,10',
+                'image' => 'image|mimes:jpeg,png,jpg|max:2048',
+            ]);
 
-        $request->validate([
-            'rating' => 'required|numeric|between:0,10',
-            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+            foreach ($fillableColumns as $column) {
 
-        foreach ($fillableColumns as $column) {
+            if ($request->has($column)) {
+                if ($request->hasFile('image')) {
+                    $image = $request->file('image');
+                    $imageName = strtolower(Str::random(10))  . '.' . $image->getClientOriginalExtension();
+                    $image->move(public_path('uploaded_img'), $imageName);
+                    $model->image = $imageName;
+                }
 
-        if ($request->has($column)) {
-              if ($request->hasFile('image')) {
-                $image = $request->file('image');
-                $imageName = strtolower(Str::random(10))  . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('uploaded_img'), $imageName);
-                $model->image = $imageName;
+                $model->$column = $request->input($column);
+                } 
             }
+            return response()->json(['message' => 'Data update successfully'], 200);
 
-          $model->$column = $request->input($column);
-          }
-    }    
+        }else {return response()->json(['message' => 'Data not found']);}
         
-          $model->update($request->all());
-          return response()->json(['message' => 'Data update successfully'], 200);
-        
-        }
+    }
     
 
     public function destroy($id){

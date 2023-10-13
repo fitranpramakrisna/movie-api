@@ -81,10 +81,11 @@ class MovieControllerTest extends TestCase
         $user = User::factory()->create();
         Sanctum::actingAs($user);
 
-        $data = Movie::factory()->create();
+        $dataMovie = Movie::factory()->create();
+        // dd($data->id);
 
         $file = UploadedFile::fake()->image('test-image.jpg');
-        $randomFloat = fake()->randomFloat(1, 0, 11);
+        $randomFloat = fake()->randomFloat(1, 0, 10);
 
         $updatedData = [
             'title' => 'Movie updated',
@@ -93,7 +94,7 @@ class MovieControllerTest extends TestCase
             'img' => $file
         ];
 
-        $response = $this->patch("/api/movies/{$data->id}", $updatedData);
+        $response = $this->patch("/api/movies/{$dataMovie->id}", $updatedData);
 
         $response->assertStatus(200);
     }
