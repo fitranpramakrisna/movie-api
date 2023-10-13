@@ -203,6 +203,9 @@ Deskripsi singkat proyek: Proyek ini merupakan proyek API CRUD untuk movie manag
               ```
 
 
+Berikut hal yang akan terjadi jika mengakses semua endpoint (kecuali: register, dan login) tanpa menggunakan token yang didapat dari hasil login tadi.
+![Logo Proyek](error_authenticated.png)
+
 ## Kontribusi
 
 Kami sangat menghargai kontribusi dari komunitas. Untuk berkontribusi ke proyek ini, ikuti langkah-langkah berikut:
