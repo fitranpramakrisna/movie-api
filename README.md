@@ -220,9 +220,6 @@ Kami sangat menghargai kontribusi dari komunitas. Untuk berkontribusi ke proyek 
 5. Push ke cabang Anda: `git push origin fitur-anda`.
 6. Buat pull request ke repositori ini.
 
-## Lisensi
-
-Proyek ini dilisensikan di bawah Lisensi [Nama Lisensi]. Lihat file [LISENSI.md] untuk informasi lebih lanjut.
 
 ## Cara Untuk Terhubung
 
