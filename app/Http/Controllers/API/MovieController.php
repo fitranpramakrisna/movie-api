@@ -21,17 +21,31 @@ class MovieController extends Controller
          ], 200);
         }
 
+        $dataArray = [];
+
+        for ($i=0; $i < count($data) ; $i++) { 
+            $dataArray[$i] = [
+                    'title' => $data[$i]['title'],
+                    'description' => $data[$i]['description'],
+                    'rating'    => $data[$i]['rating'],
+                    'image'     => $data[$i]['image'],
+                    'created_at' => $data[$i]['created_at']->toDateTimeString(),
+                    'updated_at' => $data[$i]['updated_at']->toDateTimeString()
+            ];
+        }
+
          return response()->json([
                 'message'=>'Success! Ini adalah halaman utama!',
-                'data'=> $data
+                'data'=> $dataArray
          ], 200);
     }
 
     public function show($id) {
 
         $data = Movie::find($id);
+        $test = $data->created_at->toDateTimeString();
+        $data->created_at = $test;
 
-        
         if($data == null) {
             return response()->json([
                 'message'=>'Data yang ditemukan tidak ada!',
@@ -40,7 +54,14 @@ class MovieController extends Controller
 
          return response()->json([
                 'message'=>'Success! Ini adalah halaman index',
-                'data'=> $data
+                'data'=> [
+                    'title' => $data->title,
+                    'description' => $data->description,
+                    'rating'    => $data->rating,
+                    'image'     => $data->image,
+                    'created_at' => $data->created_at->toDateTimeString(),
+                    'updated_at' => $data->updated_at->toDateTimeString()
+                ]
          ], 200);
     }
 
@@ -66,6 +87,7 @@ class MovieController extends Controller
             $model->image = $imageName;
         }
         $model->save();
+       
 
         return response()->json([
                 'message'=>'Success! Data berhasil dibuat',
@@ -122,4 +144,5 @@ class MovieController extends Controller
                 'message'=>'Success! Data berhasil dihapus',
          ], 200);
     }
+
 }
