@@ -115,8 +115,8 @@ Deskripsi singkat proyek: Proyek ini merupakan proyek API CRUD untuk movie manag
                         "description": "Kisah Tanah Jawa: Pocong Gundul adalah film horor Indonesia tahun 2023 yang disutradarai oleh Awi Suryadi berdasarkan novel berjudul sama karya Om Hao. Film produksi MD Pictures ini dibintangi oleh Deva Mahenra, Della Dartyan, dan Iwa K. Kisah Tanah Jawa: Pocong Gundul tayang perdana di bioskop pada tanggal 21 September 2023.",
                         "rating": 4,
                         "image": "1697198909.jpg",
-                        "created_at": "2023-10-13T12:08:29.000000Z",
-                        "updated_at": "2023-10-13T12:08:29.000000Z"
+                        "created_at": "2023-10-13 12:08:29",
+                        "updated_at": "2023-10-13 12:08:29"
                     }
                 ]
             }
@@ -162,8 +162,8 @@ Deskripsi singkat proyek: Proyek ini merupakan proyek API CRUD untuk movie manag
                     "description": "this is the description",
                     "rating": 6.8,
                     "image": "1697189678.jpg",
-                    "created_at": "2023-10-13T09:34:38.000000Z",
-                    "updated_at": "2023-10-13T11:58:31.000000Z"
+                    "created_at": "2023-10-13 09:34:38",
+                    "updated_at": "2023-10-13 11:58:31"
                  }
               }
               ```
