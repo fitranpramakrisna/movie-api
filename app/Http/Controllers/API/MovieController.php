@@ -25,6 +25,7 @@ class MovieController extends Controller
 
         for ($i=0; $i < count($data) ; $i++) { 
             $dataArray[$i] = [
+                    'id'    => $data[$i]['id'],
                     'title' => $data[$i]['title'],
                     'description' => $data[$i]['description'],
                     'rating'    => $data[$i]['rating'],
@@ -55,6 +56,7 @@ class MovieController extends Controller
          return response()->json([
                 'message'=>'Success! Ini adalah halaman index',
                 'data'=> [
+                    'id'    => $data->id,
                     'title' => $data->title,
                     'description' => $data->description,
                     'rating'    => $data->rating,
